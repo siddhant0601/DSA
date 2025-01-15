@@ -93,6 +93,7 @@ class Solution{
             }
             parents[0]=-1;
             vector<vector<int>>binJump(n,vector<int>(100,-1));
+             //the binJump contains the parent at a distance of 2 power i ( i =0...n) fron any node
             int depth=0;
             queue<int>q;
             q.push(0);
@@ -112,27 +113,28 @@ class Solution{
                 }
                 depth++;
             }
-            while(queries--){
-                int start,jump;
-                cin>>start>>jump;  
-                start-=1;
-                vector<int>ones;
-                for(int i=19;i>=0;i--){
-                    if(((jump>>i)&1)){
-                        ones.push_back(i);
-                    }
-                }
-                for(int one:ones){
-                    start=binJump[start][one];
-                    if(start==-1)break;
-                }
-                if(start==-1){
-                    cout<<-1<<endl;
-                }
-                else{
-                    cout<<start+1<<endl;
-                }
-            }
+           
+            // while(queries--){
+            //     int start,jump;
+            //     cin>>start>>jump;  
+            //     start-=1;
+            //     vector<int>ones;
+            //     for(int i=19;i>=0;i--){
+            //         if(((jump>>i)&1)){
+            //             ones.push_back(i);
+            //         }
+            //     }
+            //     for(int one:ones){
+            //         start=binJump[start][one];
+            //         if(start==-1)break;
+            //     }
+            //     if(start==-1){
+            //         cout<<-1<<endl;
+            //     }
+            //     else{
+            //         cout<<start+1<<endl;
+            //     }
+            // }
             // for(auto it:binJump){
             //     for(auto j:it){
             //         cout<<j<<" ";
