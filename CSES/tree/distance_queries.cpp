@@ -137,15 +137,18 @@ int binaryLifting[200001][20];
                 while(len--){
                     ll top=q.front();
                     q.pop();
+                    int parent=parents[top];
                     nodeDepth[top]=depth;
-                    binaryLifting[top][0]=parents[top];
+                    binaryLifting[top][0]=parent;
                     for(ll i=1;i<20;i++){
                         ll midNode=binaryLifting[top][i-1];
                         if(midNode==-1)continue;
                         binaryLifting[top][i]=binaryLifting[midNode][i-1];
-
                     }
-                    for(auto it:tree[top])q.push(it);
+                    for(auto it:tree[top]){
+                        if(it==parent)continue;
+                        parents[it]=top;
+                        q.push(it);}
                 }
                 depth++;
             }
@@ -192,6 +195,7 @@ int main()
     cin.tie(nullptr);
     ll cases=1;
     memset(binaryLifting, -1, sizeof(binaryLifting));
+
     // cin>>cases;
     while(cases--){
         solve();
