@@ -77,9 +77,24 @@ typedef long int int32;
 typedef unsigned long int uint32;
 typedef long long int int64;
 typedef unsigned long long int  uint64;
+vll tree[200001];
+ll rec(ll node,ll taken){
+    if(taken){
+        
+    }
+    else{
 
+    }
+}
 void solve(){
-    
+    ll n;
+    cin>>n;
+    fz(i,n-1){
+        ll a,b;
+        inp2(a,b);
+        tree[a-1].push_back(b-1);
+        tree[b-1].push_back(a-1);
+    }
 }
 int main()
 {   

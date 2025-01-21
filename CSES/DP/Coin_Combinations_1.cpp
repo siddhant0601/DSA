@@ -83,29 +83,17 @@ typedef long int int32;
 typedef unsigned long int uint32;
 typedef long long int int64;
 typedef unsigned long long int  uint64;
-// ll dp[1000001];
-// ll vec[101];
-// ll len;
-// ll rec(ll sum){
-//     if(sum==0)return 0;
-//     if(sum<0)return 1e9;
-//     if(dp[sum]!=-1)return 1e9;
-//     ll maxi=1e9;
-//     for(int i=0;i<len;i++){
-//         maxi=min(maxi,1+rec(sum-vec[i]));
-//     }
-//     print2(sum,maxi);
-//     return dp[sum]=maxi;
-// }
+
 ll rec(ll sum,vll &coins,vll &dp){
-    if(sum==0)return 0;
-    if(sum<0)return 1e9;
+    // print1(sum);
+    if(sum==0)return 1;
+    if(sum<0)return 0;
     if(dp[sum]!=-1)return dp[sum];
-    ll mini=1e9;
+    ll cnt=0;
     for(auto it:coins){
-        mini=min(mini,1+rec(sum-it,coins,dp));
+        cnt+=rec(sum-it,coins,dp)%MOD;
     }
-    return dp[sum]=mini
+    return dp[sum]=cnt%MOD;
 }
 void solve(){
     ll sum,len;
@@ -114,16 +102,19 @@ void solve(){
     fz(i,len){
         cin>>coins[i];
     }
-    vll dp(sum+1,1e9);
-    // dp[0]=0;
-    // for(int i=1;i<=sum;i++){
-    //     for(int j=0;j<len;j++){
-    //         if(coins[j]<=i){
-    //             dp[i]=min(dp[i],1+dp[i-coins[j]]);
-    //         }
-    //     }
-    // }
-    ll ans=rec(sum,coins,dp);
+    // vll dp(sum+1,-1);
+    // ll ans=rec(sum,coins,dp);
+
+    vll dp(sum+1,0);
+    dp[0]=1;
+    for(int i=1;i<=sum;i++){
+        for(int j=0;j<len;j++){
+            if(coins[j]<=i){
+                dp[i]=((dp[i-coins[j]]%MOD)+dp[i])%MOD;
+            }
+        }
+    }
+    ll ans=dp[sum]%MOD;
     if(ans==1e9)ans=-1;
     print1(ans);
 }
